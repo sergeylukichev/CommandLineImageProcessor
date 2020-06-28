@@ -29,4 +29,6 @@ public class FileService {
         }
 
     }
+
+    //https://s3-eu-west-1.amazonaws.com/lukaroundimg/beelitz2017/1a.jpg -> s3-eu-west-1.amazonaws.com.lukaroundimg.beelitz2017.1a.jpg
 }
