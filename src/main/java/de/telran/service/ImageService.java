@@ -1,6 +1,7 @@
 package de.telran.service;
 
 import de.telran.action.ImageAction;
+import de.telran.entity.ActionableImage;
 import de.telran.factory.ImageActionFactory;
 
 import java.awt.image.BufferedImage;
@@ -13,12 +14,12 @@ public class ImageService {
         this.imageActionFactory = imageActionFactory;
     }
 
-    public BufferedImage processImage(BufferedImage image, String actionName) {
-        ImageAction imageAction = imageActionFactory.getImageAction(actionName);
+    public ActionableImage processImage(ActionableImage image) {
+        ImageAction imageAction = imageActionFactory.getImageAction(image.getActionName());
         try {
-            return imageAction.doAction(image);
+            image.setImage(imageAction.doAction(image.getImage()));//better use copying constructor
         } catch (Exception ex) {
-            System.out.println("Could not process image with action "+actionName+": "+ex.getMessage());
+            System.out.println("Could not process image with action "+image.getActionName()+": "+ex.getMessage());
         }
         return image;
     }

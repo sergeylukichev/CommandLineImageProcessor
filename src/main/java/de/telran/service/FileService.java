@@ -1,5 +1,7 @@
 package de.telran.service;
 
+import de.telran.entity.ActionableImage;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,10 +22,10 @@ public class FileService {
         }
     }
 
-    public void saveImageAsFile(BufferedImage image) {
+    public void saveImageAsFile(ActionableImage image) {
 
         try {
-            ImageIO.write(image, "jpg",new File("/Users/slukichev/Downloads/images/img_"+image.hashCode()+".jpg"));
+            ImageIO.write(image.getImage(), "jpg",new File("/Users/slukichev/Downloads/images/img_"+image.hashCode()+".jpg"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

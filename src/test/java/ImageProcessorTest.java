@@ -1,5 +1,5 @@
 import de.telran.ImageProcessor;
-import de.telran.entity.DownloadedImage;
+import de.telran.entity.ActionableImage;
 import de.telran.entity.ImageDescriptor;
 import de.telran.service.DownloadService;
 import de.telran.service.FileService;
@@ -8,11 +8,8 @@ import de.telran.service.ImageService;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.IndexColorModel;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -49,10 +46,10 @@ public class ImageProcessorTest {
 
     }
 
-    private static List<DownloadedImage> createDownloadedImage() {
+    private static List<ActionableImage> createDownloadedImage() {
         return Arrays.asList(
-                new DownloadedImage(null, true, new ImageDescriptor("http://server.com/image1.jpg", "PREVIEW")),
-                new DownloadedImage(null, true, new ImageDescriptor("http://server.com/image2.jpg", "THUMBNAIL"))
+                new ActionableImage(null, true, new ImageDescriptor("http://server.com/image1.jpg", "PREVIEW")),
+                new ActionableImage(null, true, new ImageDescriptor("http://server.com/image2.jpg", "THUMBNAIL"))
                 );
     }
 
