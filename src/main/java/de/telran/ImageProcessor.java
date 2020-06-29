@@ -1,6 +1,6 @@
 package de.telran;
 
-import de.telran.entity.DownloadedImage;
+import de.telran.entity.ActionableImage;
 import de.telran.entity.ImageDescriptor;
 import de.telran.factory.ImageActionFactory;
 import de.telran.service.DownloadService;
@@ -32,15 +32,20 @@ public class ImageProcessor {
 
         List<ImageDescriptor> imageDescriptors = imageDescriptorService.getImageDescriptors(fileName);
 
-        List<DownloadedImage> downloadedImages = downloadService.downloadImages(imageDescriptors);
-
-        List<DownloadedImage> successfullyDownloadedImages = downloadedImages.stream()
-                .filter(DownloadedImage::isSuccessfull)
+        List<ActionableImage> actionableImages = imageDescriptors
+                .stream()
+                .map(i -> new ActionableImage(null, false, i.getImageUrlName(), i.getActionName()))
                 .collect(Collectors.toList());
 
-        List<BufferedImage> processedImages = successfullyDownloadedImages
+        List<ActionableImage> downloadedImages = downloadService.downloadImages(actionableImages);
+
+        List<ActionableImage> successfullyDownloadedImages = downloadedImages.stream()
+                .filter(ActionableImage::isSuccessfull)
+                .collect(Collectors.toList());
+
+        List<ActionableImage> processedImages = successfullyDownloadedImages
                 .stream()
-                .map(i -> imageService.processImage(i.getImage(), i.getImageDescriptor().getActionName()))
+                .map(i -> imageService.processImage(i))
                 .collect(Collectors.toList());
 
         processedImages.forEach(i -> fileService.saveImageAsFile(i));
